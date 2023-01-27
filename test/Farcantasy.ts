@@ -38,7 +38,7 @@ describe('Farcantasy contract tests', () => {
     await contract.mint({ value: utils.parseEther('0.0065') })
     await expect(
       contract.mint({ value: utils.parseEther('0.0065') })
-    ).to.be.revertedWith('Cap reached, check back later!')
+    ).to.be.revertedWith('This token is unmintable yet, check back later!')
     // Increase cap
     await contract.setIdCap(10)
     // Try minting for free
