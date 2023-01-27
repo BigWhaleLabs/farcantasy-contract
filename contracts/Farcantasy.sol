@@ -33,8 +33,8 @@ contract Farcantasy is ERC721, Ownable, Versioned {
   }
 
   function mint() external payable {
-    // Check if value is > 10 matic
-    require(msg.value >= 10 ether, "Value must be greater than 10");
+    // Check if value is > 0.0065 ETH
+    require(msg.value >= 0.0065 ether, "Value must be greater than 0.0065");
     uint256 _tokenId = tokenId.current();
     require(_tokenId <= idCap, "Cap reached, check back later!");
     _safeMint(msg.sender, _tokenId);
