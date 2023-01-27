@@ -12,16 +12,6 @@ async function main() {
     utils.formatEther(await deployer.getBalance())
   )
 
-  const provider = ethers.provider
-  const { chainId } = await provider.getNetwork()
-  const chains = {
-    1: 'mainnet',
-    3: 'ropsten',
-    4: 'rinkeby',
-    5: 'goerli',
-  } as { [chainId: number]: string }
-  const chainName = chains[chainId]
-
   const contractName = 'Farcantasy'
   const contractSymbol = 'FRCNTSY'
   console.log(`Deploying ${contractName}...`)
@@ -58,14 +48,8 @@ async function main() {
   }
 
   // Print out the information
-  console.log(`${contractName} deployed and verified on Etherscan!`)
+  console.log(`${contractName} deployed and verified on Polygonscan!`)
   console.log('Contract address:', address)
-  console.log(
-    'Etherscan URL:',
-    `https://${
-      chainName !== 'mainnet' ? `${chainName}.` : ''
-    }etherscan.io/address/${address}`
-  )
 }
 
 main().catch((error) => {
