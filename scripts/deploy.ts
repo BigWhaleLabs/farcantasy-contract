@@ -1,5 +1,6 @@
 import { ethers, run } from 'hardhat'
 import { utils } from 'ethers'
+import { version } from '../package.json'
 
 async function main() {
   const [deployer] = await ethers.getSigners()
@@ -21,11 +22,11 @@ async function main() {
   } as { [chainId: number]: string }
   const chainName = chains[chainId]
 
-  const contractName = 'MyERC721'
-  const contractSymbol = 'MYERC721'
+  const contractName = 'Farcantasy'
+  const contractSymbol = 'FRCNTSY'
   console.log(`Deploying ${contractName}...`)
   const Contract = await ethers.getContractFactory(contractName)
-  const contract = await Contract.deploy(contractName, contractSymbol)
+  const contract = await Contract.deploy(contractName, contractSymbol, version)
 
   console.log(
     'Deploy tx gas price:',
@@ -47,7 +48,7 @@ async function main() {
   try {
     await run('verify:verify', {
       address,
-      constructorArguments: [contractName, contractSymbol],
+      constructorArguments: [contractName, contractSymbol, version],
     })
   } catch (err) {
     console.log(

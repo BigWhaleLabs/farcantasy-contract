@@ -1,10 +1,10 @@
-# Solidity Ethereum smart contract starter
+# Contract for Farcantasy
 
-Heavily influenced by the [Big Whale Labs repos](https://github.com/BigWhaleLabs).
+Trading contract for the cards at Farcantasy.
 
 ## Usage
 
-1. Clone the repository with `git clone git@github.com:Borodutch/smart-contract-starter`
+1. Clone the repository with `git clone git@github.com:BigWhaleLabs/farcantasy-contract`
 2. Install the dependencies with `yarn`
 3. Add environment variables to your `.env` file
 4. Run the scripts below
