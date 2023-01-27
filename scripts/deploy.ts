@@ -14,9 +14,15 @@ async function main() {
 
   const contractName = 'Farcantasy'
   const contractSymbol = 'FRCNTSY'
+  const baseUri = 'https://farcantasy.com/metadata/'
   console.log(`Deploying ${contractName}...`)
   const Contract = await ethers.getContractFactory(contractName)
-  const contract = await Contract.deploy(contractName, contractSymbol, version)
+  const contract = await Contract.deploy(
+    contractName,
+    contractSymbol,
+    version,
+    baseUri
+  )
 
   console.log(
     'Deploy tx gas price:',
@@ -38,7 +44,7 @@ async function main() {
   try {
     await run('verify:verify', {
       address,
-      constructorArguments: [contractName, contractSymbol, version],
+      constructorArguments: [contractName, contractSymbol, version, baseUri],
     })
   } catch (err) {
     console.log(

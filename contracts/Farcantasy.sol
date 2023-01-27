@@ -9,16 +9,27 @@ import "@big-whale-labs/versioned-contract/contracts/Versioned.sol";
 contract Farcantasy is ERC721, Ownable, Versioned {
   using Counters for Counters.Counter;
 
+  string public baseURI;
   Counters.Counter public tokenId;
   uint256 public idCap = 1000;
 
   constructor(
     string memory tokenName,
     string memory tokenSymbol,
-    string memory version
+    string memory version,
+    string memory _newBaseURI
   ) ERC721(tokenName, tokenSymbol) Versioned(version) {
+    baseURI = _newBaseURI;
     // Start with token 1
     tokenId.increment();
+  }
+
+  function _baseURI() internal view override returns (string memory) {
+    return baseURI;
+  }
+
+  function setBaseURI(string memory _newBaseURI) external onlyOwner {
+    baseURI = _newBaseURI;
   }
 
   function mint() external payable {
