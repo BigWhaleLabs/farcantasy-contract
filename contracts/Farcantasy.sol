@@ -8,6 +8,7 @@ import "@big-whale-labs/versioned-contract/contracts/Versioned.sol";
 contract Farcantasy is ERC721, Ownable, Versioned {
   string public baseURI;
   uint256 public idCap = 1000;
+  uint256 public mintCost = 0.0065 ether;
 
   constructor(
     string memory tokenName,
@@ -26,9 +27,13 @@ contract Farcantasy is ERC721, Ownable, Versioned {
     baseURI = _newBaseURI;
   }
 
+  function setMintCost(uint256 _newMintCost) external onlyOwner {
+    mintCost = _newMintCost;
+  }
+
   function mint(uint256 tokenId) external payable {
-    // Check if value is > 0.0065 ETH
-    require(msg.value >= 0.0065 ether, "Value must be greater than 0.0065");
+    // Check if value is > mintCost
+    require(msg.value >= mintCost, "Value must be greater than 0.0065");
     // Check if token id is valid
     require(tokenId > 0, "There is no genesis user here! Weird, right?");
     require(

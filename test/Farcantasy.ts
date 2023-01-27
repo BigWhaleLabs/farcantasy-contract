@@ -24,7 +24,6 @@ describe('Farcantasy contract tests', () => {
   })
 
   it('should correctly set idCap and mint', async function () {
-    const version = '1.0.0'
     const contract = await this.factory.deploy(
       'Farcantasy',
       'FRCNTSY',
@@ -32,28 +31,33 @@ describe('Farcantasy contract tests', () => {
       baseUri
     )
     expect(await contract.idCap()).to.equal(1000)
+    await expect(
+      contract.mint(0, { value: utils.parseEther('0.0065') })
+    ).to.be.revertedWith('There is no genesis user here! Weird, right?')
     // Call setIdCap
     await contract.setIdCap(1)
     // Mint
-    await contract.mint({ value: utils.parseEther('0.0065') })
+    await contract.mint(1, { value: utils.parseEther('0.0065') })
     await expect(
-      contract.mint({ value: utils.parseEther('0.0065') })
+      contract.mint(1, { value: utils.parseEther('0.0065') })
+    ).to.be.revertedWith('Token already minted')
+    await expect(
+      contract.mint(2, { value: utils.parseEther('0.0065') })
     ).to.be.revertedWith('This token is unmintable yet, check back later!')
     // Increase cap
     await contract.setIdCap(10)
     // Try minting for free
-    await expect(contract.mint()).to.be.revertedWith(
+    await expect(contract.mint(2)).to.be.revertedWith(
       'Value must be greater than 0.0065'
     )
     await expect(
-      contract.mint({ value: utils.parseEther('0.0064') })
+      contract.mint(2, { value: utils.parseEther('0.0064') })
     ).to.be.revertedWith('Value must be greater than 0.0065')
     // Mint again
-    await contract.mint({ value: utils.parseEther('0.0065') })
-    expect(await contract.tokenId()).to.equal(3)
+    await contract.mint(3, { value: utils.parseEther('0.0065') })
     const signer = (await ethers.getSigners())[0]
     expect(await signer.provider?.getBalance(signer.address)).to.equal(
-      '9999996391469514460636'
+      '9999996236770296819921'
     )
   })
 })
