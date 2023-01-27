@@ -48,7 +48,7 @@ async function main() {
   }
 
   // Print out the information
-  console.log(`${contractName} deployed and verified on Polygonscan!`)
+  console.log(`${contractName} deployed and verified on blockchain explorer!`)
   console.log('Contract address:', address)
 }
 
